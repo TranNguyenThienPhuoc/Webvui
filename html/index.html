@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 Thiệp Mời Sinh Nhật - Thị Mỳ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Dancing+Script:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<body>
+    <!-- Confetti background -->
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <!-- Floating balloons -->
+    <div class="balloons">
+        <div class="balloon">🎈</div>
+        <div class="balloon">🎈</div>
+        <div class="balloon">🎈</div>
+        <div class="balloon">🎈</div>
+        </div>
+        
+    <!-- Floating hearts -->
+    <div class="hearts">
+        <div class="heart">💖</div>
+        <div class="heart">💕</div>
+        <div class="heart">💗</div>
+            </div>
+            
+    <!-- Floating particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Card container -->
+    <div class="card-container" id="cardContainer">
+        <div class="card" id="card">
+            <!-- Card Front -->
+            <div class="card-front">
+                <!-- Floating hearts decoration -->
+                <div class="floating-hearts-container" id="floatingHeartsContainer"></div>
+
+                <!-- Card balloons - clusters at top corners -->
+                <div class="card-balloons">
+                    <div class="balloon-cluster left">
+                        <div class="card-balloon"></div>
+                        <div class="card-balloon"></div>
+                        <div class="card-balloon"></div>
+                        <div class="card-balloon"></div>
+                    </div>
+                    <div class="balloon-cluster right">
+                        <div class="card-balloon"></div>
+                        <div class="card-balloon"></div>
+                        <div class="card-balloon"></div>
+                        <div class="card-balloon"></div>
+                    </div>
+                </div>
+
+                <!-- Sparkles -->
+                <div class="sparkles">
+                    <span class="sparkle" style="top: 15%; left: 10%; animation-delay: 0s;">✨</span>
+                    <span class="sparkle" style="top: 25%; right: 15%; animation-delay: 0.5s;">⭐</span>
+                    <span class="sparkle" style="bottom: 35%; left: 8%; animation-delay: 1s;">💫</span>
+                    <span class="sparkle" style="bottom: 25%; right: 12%; animation-delay: 1.5s;">🌟</span>
+                    <span class="sparkle" style="top: 50%; left: 5%; animation-delay: 2s;">✨</span>
+                    <span class="sparkle" style="top: 60%; right: 8%; animation-delay: 2.5s;">⭐</span>
+                    </div>
+                    
+                <div class="happy-curve">
+                    <svg viewBox="0 0 700 250" preserveAspectRatio="xMidYMid meet">
+                        <defs>
+                            <path id="curvePath" d="M20 160 Q350 40 680 160" />
+                        </defs>
+                        <text text-anchor="middle">
+                            <textPath href="#curvePath" startOffset="50%">Happy Birthday</textPath>
+                        </text>
+                    </svg>
+                </div>
+
+                <div class="cake">
+                    <div class="cake-candle">
+                        <div class="cake-flame"></div>
+                    </div>
+                    <div class="cake-layer layer-top">
+                        <div class="cake-drip"></div>
+                    </div>
+                    <div class="cake-layer layer-mid">
+                        <div class="cake-drip"></div>
+                    </div>
+                    <div class="cake-layer layer-bottom">
+                        <div class="cake-drip"></div>
+                    </div>
+                    <div class="cake-plate"></div>
+                </div>
+                <div class="open-hint" id="openHint">
+                    👆 Nhấn để mở thiệp
+                        </div>
+                    </div>
+                    
+            <!-- Card Back -->
+            <div class="card-back">
+                <!-- Decorative stars -->
+                <div class="back-decoration">
+                    <div class="decoration-star">⭐</div>
+                    <div class="decoration-star">⭐</div>
+                    <div class="decoration-star">⭐</div>
+                    <div class="decoration-star">⭐</div>
+                    </div>
+                    
+                <div class="back-content">
+                    <h2 class="back-title">🎉 Thân Mời Cô Chú/Anh Chị Đến Dự 🎉</h2>
+                    <div class="back-name">Sinh Nhật Thị Mỳ</div>
+                    <p class="back-message">
+                        Mừng sinh nhật 3 tuổi của Thị Mỳ!<br>
+                        Hãy cùng chúng tôi chúc mừng<br>
+                        khoảnh khắc đặc biệt này! ✨
+                    </p>
+                    <button class="enter-button" id="enterButton">
+                        <span><i class="fas fa-heart"></i> Chung Vui Cùng Bé</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+    </div>
+
+    <script src="../script/index.js"></script>
+</body>
+</html>

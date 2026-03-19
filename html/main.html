@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 Thị Mỳ's 6th Birthday - Join the Celebration!</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Preload removed: ensure images/birthday/Happy Birthday.jpg exists if you add it back -->
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+</head>
+<body onkeydown="if(event.key === 'Escape') { var modal = document.getElementById('timeCapsuleModal'); if(modal && modal.classList.contains('active')) { modal.classList.remove('active'); modal.style.display='none'; document.body.classList.remove('modal-open'); document.body.style.overflow = ''; } }">
+    
+
+    <!-- Interactive Baby Dragon -->
+    <div class="baby-dragon-container">
+        <div class="baby-dragon" id="babyDragon" data-toy="dragon">
+            <div class="dragon-sparkles">
+                <span class="sparkle-1">✨</span>
+                <span class="sparkle-2">⭐</span>
+                <span class="sparkle-3">💫</span>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <!-- Reduced Interactive Floating Toys -->
+    <div class="floating-toys-container">
+        <div class="floating-toy teddy-bear" data-toy="bear">
+            <div class="toy-3d">🧸</div>
+        </div>
+    </div>
+
+
+    <!-- Musical Mobile -->
+    <div class="musical-mobile">
+        <div class="mobile-arm"></div>
+        <div class="mobile-toys">
+            <div class="mobile-toy mobile-toy-1">🌙</div>
+            <div class="mobile-toy mobile-toy-2">⭐</div>
+            <div class="mobile-toy mobile-toy-3">☁️</div>
+            <div class="mobile-toy mobile-toy-4">🌈</div>
+        </div>
+    </div>
+
+    <!-- Mouse Trail Sparkles -->
+    <div class="sparkle-trail"></div>
+
+    <!-- Magical Time Capsule -->
+    <div class="magical-time-capsule-container">
+        <div class="floating-time-bottle" id="timeCapsuleBottle" onclick="openTimeCapsuleModal(); event.stopPropagation();">
+            <div class="bottle-magic-aura"></div>
+            <div class="bottle-crystal">
+                <div class="crystal-core">💌</div>
+                <div class="crystal-sparkles">
+                    <span class="sparkle sparkle-1">✨</span>
+                    <span class="sparkle sparkle-2">💫</span>
+                    <span class="sparkle sparkle-3">⭐</span>
+                    <span class="sparkle sparkle-4">🌟</span>
+                </div>
+            </div>
+            <div class="bottle-tooltip">
+                <div class="tooltip-content">
+                    <div class="tooltip-title">💫 Time Capsule 💫</div>
+                    <div class="tooltip-subtitle">Messages for Future Thị Mỳ</div>
+                    <div class="tooltip-hint">Click to leave a message! ✨</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Magical Time Capsule Modal -->
+    <div class="magical-time-capsule-modal" id="timeCapsuleModal" onclick="if(event.target === this) { this.classList.remove('active'); this.style.display='none'; document.body.classList.remove('modal-open'); document.body.style.overflow = ''; }">
+        <div class="modal-backdrop"></div>
+        <div class="magical-modal-content">
+            <!-- Modal Header -->
+            <div class="magical-modal-header">
+                <div class="header-decoration">
+                    <div class="header-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <h2 class="modal-title">
+                    <span class="title-icon">💌</span>
+                    <span class="title-text">Time Capsule for Thị Mỳ</span>
+                    <span class="title-age">6th Birthday Edition</span>
+                </h2>
+                <button class="magical-close-btn" id="closeTimeCapsule" onclick="document.getElementById('timeCapsuleModal').classList.remove('active'); document.getElementById('timeCapsuleModal').style.display='none'; document.body.classList.remove('modal-open'); document.body.style.overflow = '';">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="magical-modal-body">
+                <div class="modal-intro">
+                    <div class="intro-icon">🎂</div>
+                    <p class="intro-text">
+                        Write a heartfelt message for Thị Mỳ to discover when she turns 18! 
+                        Your words will be a precious gift from her childhood to her future self. 💝
+                    </p>
+                </div>
+
+                <!-- Message Form -->
+                <form class="magical-message-form" id="messageForm">
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-heart"></i>
+                            Your Message
+                        </label>
+                        <div class="textarea-container">
+                            <textarea 
+                                id="timeCapsuleMessage" 
+                                class="magical-textarea"
+                                placeholder="Dear Future Thị Mỳ,
+
+I hope when you read this on your 18th birthday, you'll remember..."
+                                maxlength="500"
+                            ></textarea>
+                            <div class="character-counter">
+                                <span id="charCount">0</span>/500
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-user"></i>
+                            Your Name
+                        </label>
+                        <input 
+                            type="text" 
+                            id="senderName" 
+                            class="magical-input"
+                            placeholder="Who is sending this love?"
+                        >
+                    </div>
+
+                    <button type="submit" id="saveMessage" class="magical-save-btn">
+                        <span class="btn-icon">✨</span>
+                        <span class="btn-text">Send to Future Thị Mỳ</span>
+                        <span class="btn-sparkles">
+                            <span class="sparkle-dot"></span>
+                            <span class="sparkle-dot"></span>
+                            <span class="sparkle-dot"></span>
+                        </span>
+                    </button>
+                </form>
+
+                <!-- Messages Display -->
+                <div class="messages-section">
+                    <div class="messages-header">
+                        <h3 class="messages-title">
+                            <i class="fas fa-envelope-open"></i>
+                            Messages from the Heart
+                        </h3>
+                        <div class="messages-counter" id="messagesCounter">
+                            Loading... ⏳
+                        </div>
+                    </div>
+                    <div class="magical-messages-container" id="savedMessages">
+                        <!-- Messages will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Navigation -->
+    <header class="header">
+     
+    </header>
+ 
+    <!-- Spectacular Hero Section -->
+    <section class="hero">
+        <div class="parallax-bg" data-speed="0.5"></div>
+        
+        <!-- Hero Fireworks Animation -->
+        <div class="hero-fireworks" id="heroFireworks"></div>
+        
+        <!-- Dramatic Title Entrance -->
+        <div class="hero-content">
+            <div class="spectacular-decorations">
+                <div class="rainbow-arch"></div>
+                <div class="floating-stars">
+                    <i class="fas fa-star star-1"></i>
+                    <i class="fas fa-star star-2"></i>
+                    <i class="fas fa-star star-3"></i>
+                    <i class="fas fa-star star-4"></i>
+                </div>
+            </div>
+            
+            <div class="title-explosion">
+                <h1 class="hero-title spectacular-entrance">
+                    <span class="title-word word-1">🎉</span>
+                    <span class="title-word word-2">You're</span>
+                    <span class="title-word word-3">Invited!</span>
+                    <span class="title-word word-4">🎉</span>
+                </h1>
+                <div class="title-rainbow-trail"></div>
+            </div>
+            
+            <h2 class="birthday-girl magical-entrance">
+                Celebrating <span class="name-highlight dragon-name">Thị Mỳ's</span> 6th Birthday!
+            </h2>
+            
+            <p class="hero-subtitle magical-entrance">
+                Join us for a <span class="highlight-magical">MAGICAL</span> celebration! 
+                Our little girl dragon turns 6!
+            </p>
+            
+            <div class="cta-buttons magical-entrance">
+                <a href="#memories-section" class="btn btn-primary spectacular-btn">
+                    <i class="fas fa-camera"></i>
+                    <span>View Gallery</span>
+                    <div class="btn-sparkles"></div>
+                </a>
+                <a href="#party-details" class="btn btn-secondary spectacular-btn">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Party Details</span>
+                    <div class="btn-sparkles"></div>
+                </a>
+                <a href="#" id="openTimeCapsuleBtn" class="btn btn-secondary spectacular-btn" onclick="event.preventDefault(); openTimeCapsuleModal();">
+                    <i class="fas fa-envelope-open"></i>
+                    <span>Send Wishes</span>
+                    <div class="btn-sparkles"></div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Magical Entrance Particles -->
+        <div class="hero-entrance-particles" id="heroEntranceParticles"></div>
+    </section>
+
+    <!-- Party Details Section -->
+    <section id="party-details" class="party-details">
+        <div class="section-parallax-bg" data-speed="0.3"></div>
+        <div class="floating-section-elements">
+            <div class="section-float balloon-float-1" data-speed="0.4">🎈</div>
+            <div class="section-float balloon-float-2" data-speed="0.6">🎀</div>
+            <div class="section-float balloon-float-3" data-speed="0.5">✨</div>
+        </div>
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-calendar-alt"></i>
+                Party Details
+            </h2>
+            
+            <div class="details-grid">
+                <div class="detail-card">
+                    <i class="fas fa-calendar-day"></i>
+                    <h3>Date</h3>
+                    <p id="party-date">Saturday, September 27, 2025</p>
+                </div>
+                
+                <div class="detail-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Time</h3>
+                    <p id="party-time">11:00 AM</p>
+                </div>
+                
+                <div class="detail-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Location</h3>
+                    <p id="party-location">555 Johnson St, Victoria, BC</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Milestone Timeline - 6 years journey -->
+    <section id="milestone-section" class="milestone-section">
+        <div class="milestone-parallax-bg"></div>
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-star"></i>
+                Thị Mỳ's Amazing 6 Years Journey
+            </h2>
+            <div class="milestone-timeline">
+                <div class="milestone-item" data-milestone="birth">
+                    <div class="milestone-icon">👶</div>
+                    <div class="milestone-content">
+                        <h3>Hello World!</h3>
+                        <p>Born: September 8th, 2020</p>
+                        <p class="birth-message">Our perfect little girl! 👧💕</p>
+                    </div>
+                </div>
+                <div class="milestone-item" data-milestone="school">
+                    <div class="milestone-icon">🏫</div>
+                    <div class="milestone-content">
+                        <h3>First Day of School</h3>
+                        <p>Started kindergarten — so brave!</p>
+                    </div>
+                </div>
+                <div class="milestone-item" data-milestone="read">
+                    <div class="milestone-icon">📚</div>
+                    <div class="milestone-content">
+                        <h3>Learning to Read</h3>
+                        <p>Discovering the magic of books</p>
+                    </div>
+                </div>
+                <div class="milestone-item" data-milestone="art">
+                    <div class="milestone-icon">🎨</div>
+                    <div class="milestone-content">
+                        <h3>Creative Little Artist</h3>
+                        <p>Loves drawing and painting</p>
+                    </div>
+                </div>
+                <div class="milestone-item" data-milestone="dance">
+                    <div class="milestone-icon">💃</div>
+                    <div class="milestone-content">
+                        <h3>First Dance Class</h3>
+                        <p>Dancing with joy and grace</p>
+                    </div>
+                </div>
+                <div class="milestone-item" data-milestone="friends">
+                    <div class="milestone-icon">🤝</div>
+                    <div class="milestone-content">
+                        <h3>Best Friends</h3>
+                        <p>Making wonderful friends</p>
+                    </div>
+                </div>
+                <div class="milestone-item" data-milestone="growing">
+                    <div class="milestone-icon">🌟</div>
+                    <div class="milestone-content">
+                        <h3>Growing So Fast</h3>
+                        <p>Our amazing little girl</p>
+                    </div>
+                </div>
+                <div class="milestone-item milestone-birthday" data-milestone="birthday">
+                    <div class="milestone-icon birthday-icon">🎉</div>
+                    <div class="milestone-content">
+                        <h3>6th Birthday!</h3>
+                        <p>Six amazing years complete! 🎂✨</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Interactive Birthday Song -->
+    <section id="birthday-song" class="birthday-song-section">
+        <div class="song-parallax-bg"></div>
+        
+        <!-- Floating Musical Elements -->
+        <div class="song-floating-elements">
+            <div class="song-float song-float-1">🎵</div>
+            <div class="song-float song-float-2">🎶</div>
+            <div class="song-float song-float-3">🎼</div>
+            <div class="song-float song-float-4">🎹</div>
+        </div>
+        
+        <div class="container">
+            <!-- Section Header -->
+            <div class="song-header">
+                <h2 class="song-main-title">
+                    <span class="title-icon">🎂</span>
+                    <span class="title-text">Musical Birthday Wishes</span>
+                    <span class="title-subtitle">Play Thị Mỳ's Birthday Song!</span>
+                </h2>
+                <p class="song-description">
+                    Click the musical notes below to play the "Happy Birthday" melody! 
+                    Each note creates beautiful sounds to celebrate our little girl! 🎵
+                </p>
+            </div>
+            
+            <!-- Musical Interface -->
+            <div class="musical-interface">
+                <!-- Play All Button -->
+                <div class="play-controls">
+                    <button class="play-all-btn" id="playAllNotes">
+                        <span class="btn-icon">🎵</span>
+                        <span class="btn-text">Play Full Song</span>
+                        <span class="btn-sparkles">
+                            <span class="sparkle-dot"></span>
+                            <span class="sparkle-dot"></span>
+                            <span class="sparkle-dot"></span>
+                        </span>
+                    </button>
+                </div>
+                
+                <!-- Musical Notes Grid -->
+                <div class="notes-grid">
+                    <!-- First line: Happy Birthday to you -->
+                    <div class="note-group">
+                        <div class="note-label">Happy Birthday to you</div>
+                        <div class="notes-row">
+                            <button class="note-btn" data-note="261.63" data-duration="0.5">
+                                <span class="note-icon">🎵</span>
+                                <span class="note-name">C</span>
+                                <span class="note-word">Hap-</span>
+                            </button>
+                            <button class="note-btn" data-note="261.63" data-duration="0.3">
+                                <span class="note-icon">🎵</span>
+                                <span class="note-name">C</span>
+                                <span class="note-word">-py</span>
+                            </button>
+                            <button class="note-btn" data-note="293.66" data-duration="0.8">
+                                <span class="note-icon">🎶</span>
+                                <span class="note-name">D</span>
+                                <span class="note-word">Birth-</span>
+                            </button>
+                            <button class="note-btn" data-note="261.63" data-duration="0.8">
+                                <span class="note-icon">🎵</span>
+                                <span class="note-name">C</span>
+                                <span class="note-word">-day</span>
+                            </button>
+                            <button class="note-btn" data-note="349.23" data-duration="0.8">
+                                <span class="note-icon">🎼</span>
+                                <span class="note-name">F</span>
+                                <span class="note-word">to</span>
+                            </button>
+                            <button class="note-btn" data-note="329.63" data-duration="1.2">
+                                <span class="note-icon">🎹</span>
+                                <span class="note-name">E</span>
+                                <span class="note-word">you</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Second line: Happy Birthday to you -->
+                    <div class="note-group">
+                        <div class="note-label">Happy Birthday to you</div>
+                        <div class="notes-row">
+                            <button class="note-btn" data-note="261.63" data-duration="0.5">
+                                <span class="note-icon">🎵</span>
+                                <span class="note-name">C</span>
+                                <span class="note-word">Hap-</span>
+                            </button>
+                            <button class="note-btn" data-note="261.63" data-duration="0.3">
+                                <span class="note-icon">🎵</span>
+                                <span class="note-name">C</span>
+                                <span class="note-word">-py</span>
+                            </button>
+                            <button class="note-btn" data-note="293.66" data-duration="0.8">
+                                <span class="note-icon">🎶</span>
+                                <span class="note-name">D</span>
+                                <span class="note-word">Birth-</span>
+                            </button>
+                            <button class="note-btn" data-note="261.63" data-duration="0.8">
+                                <span class="note-icon">🎵</span>
+                                <span class="note-name">C</span>
+                                <span class="note-word">-day</span>
+                            </button>
+                            <button class="note-btn" data-note="392.00" data-duration="0.8">
+                                <span class="note-icon">🎤</span>
+                                <span class="note-name">G</span>
+                                <span class="note-word">to</span>
+                            </button>
+                            <button class="note-btn" data-note="349.23" data-duration="1.2">
+                                <span class="note-icon">🎼</span>
+                                <span class="note-name">F</span>
+                                <span class="note-word">you</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Third line: Happy Birthday dear Thị Mỳ -->
+                    <div class="note-group">
+                        <div class="note-label">Happy Birthday dear Thị Mỳ</div>
+                        <div class="notes-row">
+                            <button class="note-btn" data-note="261.63" data-duration="0.5">
+                                <span class="note-icon">🎵</span>
+                                <span class="note-name">C</span>
+                                <span class="note-word">Hap-</span>
+                            </button>
+                            <button class="note-btn" data-note="523.25" data-duration="0.8">
+                                <span class="note-icon">🌟</span>
+                                <span class="note-name">C♪</span>
+                                <span class="note-word">-py</span>
+                            </button>
+                            <button class="note-btn" data-note="440.00" data-duration="0.8">
+                                <span class="note-icon">🎊</span>
+                                <span class="note-name">A</span>
+                                <span class="note-word">Birth-</span>
+                            </button>
+                            <button class="note-btn" data-note="349.23" data-duration="0.8">
+                                <span class="note-icon">🎼</span>
+                                <span class="note-name">F</span>
+                                <span class="note-word">-day</span>
+                            </button>
+                            <button class="note-btn" data-note="329.63" data-duration="0.8">
+                                <span class="note-icon">🎹</span>
+                                <span class="note-name">E</span>
+                                <span class="note-word">dear</span>
+                            </button>
+                            <button class="note-btn" data-note="293.66" data-duration="1.2">
+                                <span class="note-icon">💖</span>
+                                <span class="note-name">D</span>
+                                <span class="note-word">Thị Mỳ</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Fourth line: Happy Birthday to you -->
+                    <div class="note-group">
+                        <div class="note-label">Happy Birthday to you</div>
+                        <div class="notes-row">
+                            <button class="note-btn" data-note="466.16" data-duration="0.5">
+                                <span class="note-icon">🎈</span>
+                                <span class="note-name">B♭</span>
+                                <span class="note-word">Hap-</span>
+                            </button>
+                            <button class="note-btn" data-note="466.16" data-duration="0.3">
+                                <span class="note-icon">🎈</span>
+                                <span class="note-name">B♭</span>
+                                <span class="note-word">-py</span>
+                            </button>
+                            <button class="note-btn" data-note="440.00" data-duration="0.8">
+                                <span class="note-icon">🎊</span>
+                                <span class="note-name">A</span>
+                                <span class="note-word">Birth-</span>
+                            </button>
+                            <button class="note-btn" data-note="349.23" data-duration="0.8">
+                                <span class="note-icon">🎼</span>
+                                <span class="note-name">F</span>
+                                <span class="note-word">-day</span>
+                            </button>
+                            <button class="note-btn" data-note="392.00" data-duration="0.8">
+                                <span class="note-icon">🎤</span>
+                                <span class="note-name">G</span>
+                                <span class="note-word">to</span>
+                            </button>
+                            <button class="note-btn" data-note="349.23" data-duration="1.5">
+                                <span class="note-icon">🎂</span>
+                                <span class="note-name">F</span>
+                                <span class="note-word">you!</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Precious Memories Gallery -->
+    <section id="memories-section" class="memories-section">
+        <div class="memories-parallax-bg"></div>
+        
+        <!-- Floating Memory Elements -->
+        <div class="memories-floating-elements">
+            <div class="memory-float memory-float-1">📸</div>
+            <div class="memory-float memory-float-2">💝</div>
+            <div class="memory-float memory-float-3">🌟</div>
+            <div class="memory-float memory-float-4">💕</div>
+        </div>
+        
+        <div class="container">
+            <!-- Section Header -->
+            <div class="memories-header">
+                <h2 class="memories-main-title">
+                    <span class="title-icon">💖</span>
+                    <span class="title-text">Precious Memories</span>
+                    <span class="title-subtitle">Thị Mỳ's Precious Memories</span>
+                </h2>
+                <p class="memories-description">
+                    Every smile, every giggle, every precious moment captured with love! 
+                    These beautiful memories tell the story of our little girl's amazing journey! ✨
+                </p>
+            </div>
+            
+            <!-- Filter Tags -->
+            <div class="memory-filters">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fas fa-heart"></i>
+                    All Memories
+                </button>
+                <button class="filter-btn" data-filter="hangout">
+                    <i class="fas fa-gamepad"></i>
+                    Hang Out (27)
+                </button>
+                <button class="filter-btn" data-filter="halloween">
+                    <i class="fas fa-ghost"></i>
+                    Halloween (12)
+                </button>
+                <button class="filter-btn" data-filter="family">
+                    <i class="fas fa-users"></i>
+                    Family (8)
+                </button>
+                <button class="filter-btn" data-filter="christmas">
+                    <i class="fas fa-snowflake"></i>
+                    Christmas (5)
+                </button>
+                <button class="filter-btn" data-filter="friend">
+                    <i class="fas fa-user-friends"></i>
+                    Friends (4)
+                </button>
+                <button class="filter-btn" data-filter="sea">
+                    <i class="fas fa-umbrella-beach"></i>
+                    Sea (4)
+                </button>
+                <button class="filter-btn" data-filter="cry">
+                    <i class="fas fa-sad-tear"></i>
+                    Cute (2)
+                </button>
+            </div>
+            
+            <!-- Memory Stats -->
+            <div class="memory-stats">
+                <div class="stat-item">
+                    <span class="stat-number" id="totalPhotos">0</span>
+                    <span class="stat-label">Beautiful Photos</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">365</span>
+                    <span class="stat-label">Days of Love</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">∞</span>
+                    <span class="stat-label">Precious Moments</span>
+                </div>
+            </div>
+            
+            <!-- Masonry Photo Grid -->
+            <div class="memories-masonry-grid" id="memoriesMasonryGrid">
+                <!-- Photos will be dynamically loaded here -->
+            </div>
+            
+                    <!-- Infinite Scroll Loading Indicator -->
+                    <div class="infinite-loading" id="infiniteLoadingIndicator" style="display: none;">
+                        <div class="infinite-loading-spinner"></div>
+                        <div class="infinite-loading-text">Loading more precious memories...</div>
+                    </div>
+        </div>
+        
+        <!-- Enhanced Lightbox -->
+        <div class="memories-lightbox" id="memoriesLightbox">
+            <div class="lightbox-backdrop"></div>
+            <div class="lightbox-container">
+                <div class="lightbox-header">
+                    <div class="lightbox-info">
+                        <h3 class="lightbox-title" id="lightboxTitle">Beautiful Memory</h3>
+                        <p class="lightbox-subtitle" id="lightboxSubtitle">Precious memories of Thị Mỳ</p>
+                    </div>
+                    <button class="lightbox-close" id="closeLightbox">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="lightbox-content">
+                    <img class="lightbox-image" id="lightboxImage" src="" alt="">
+                    <div class="lightbox-controls">
+                        <button class="lightbox-btn lightbox-prev" id="prevMemory">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div class="lightbox-counter">
+                            <span id="currentMemoryIndex">1</span> / <span id="totalMemoryCount">1</span>
+                        </div>
+                        <button class="lightbox-btn lightbox-next" id="nextMemory">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="lightbox-actions">
+                    <button class="action-btn download-btn" id="downloadPhoto">
+                        <i class="fas fa-download"></i>
+                        <span>Save Photo</span>
+                    </button>
+                    <button class="action-btn share-btn" id="sharePhoto">
+                        <i class="fas fa-share"></i>
+                        <span>Share Love</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+                <p>&copy; 2026 Thị Mỳ's 6th Birthday. Made with <i class="fas fa-heart"></i> for our precious little girl!</p>
+            <div class="social-share">
+                <button class="share-btn" onclick="shareParty()">
+                    <i class="fas fa-share-alt"></i>
+                    Share Invitation
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Success/Error Messages -->
+    <div id="notification" class="notification"></div>
+
+    <script src="../script/main.js"></script>
+
+<script async id="netlify-rum-container" src="/.netlify/scripts/rum" data-netlify-rum-site-id="5c2b20c8-b7cd-4562-8b15-5897e0bd99bc" data-netlify-deploy-branch="main" data-netlify-deploy-context="production" data-netlify-cwv-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaXRlX2lkIjoiNWMyYjIwYzgtYjdjZC00NTYyLThiMTUtNTg5N2UwYmQ5OWJjIiwiYWNjb3VudF9pZCI6IjY4Y2JkNmFmZGY3YzE2MzNlYjFhMzM2MSIsImRlcGxveV9pZCI6IjY4Y2QxM2VkOTdmNjA3MDAwODZhNzM3OSIsImlzc3VlciI6Im5mc2VydmVyIn0.vpCm9zLlLXcLSju4BGgoqkYX-pZhfjfO9Ke_oTzGPvA"></script></body>
+</html>
