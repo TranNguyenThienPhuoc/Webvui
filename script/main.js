@@ -308,7 +308,7 @@ function initializePartyDetailsAnimations() {
             const mapIcon = card.querySelector('i');
             if (mapIcon && mapIcon.classList.contains('fa-map-marker-alt')) {
                 const hint = document.createElement('div');
-                hint.innerHTML = '📍 Click to open in Maps';
+                hint.innerHTML = 'Click to open in Maps';
                 hint.style.cssText = `
                     font-size: 0.9rem;
                     color: rgba(255, 255, 255, 0.8);
@@ -363,7 +363,7 @@ function createPartySparkleEffect(card) {
                 top: ${rect.top + rect.height * Math.random()}px;
                 width: 8px;
                 height: 8px;
-                background: ${['✨', '💫', '🌟'][Math.floor(Math.random() * 3)]};
+                background: ${['fa-star', 'fa-star', 'fa-star'][Math.floor(Math.random() * 3)]};
                 font-size: 8px;
                 pointer-events: none;
                 z-index: 1000;
@@ -401,7 +401,7 @@ function createMapClickEffect(card) {
                 top: ${rect.top + rect.height * Math.random()}px;
                 width: 12px;
                 height: 12px;
-                background: ${['🗺️', '📍', '🌍'][Math.floor(Math.random() * 3)]};
+                background: ${['fa-map', 'fa-map-marker-alt', 'fa-globe'][Math.floor(Math.random() * 3)]};
                 font-size: 12px;
                 pointer-events: none;
                 z-index: 1000;
@@ -569,7 +569,7 @@ function showManualCopyDialog(text) {
     dialog.innerHTML = `
         <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; display: flex; align-items: center; justify-content: center;">
             <div style="background: white; padding: 2rem; border-radius: 15px; max-width: 500px; margin: 1rem;">
-                <h3 style="margin-bottom: 1rem; color: #2d3748;">📋 Copy Invitation Text</h3>
+                <h3 style="margin-bottom: 1rem; color: #2d3748;"> Copy Invitation Text</h3>
                 <textarea readonly style="width: 100%; height: 150px; padding: 1rem; border: 2px solid #e2e8f0; border-radius: 8px; font-family: inherit; resize: none;">${text}</textarea>
                 <div style="margin-top: 1rem; text-align: right;">
                     <button onclick="this.closest('div').parentElement.remove()" style="background: #ff6b9d; color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer;">Close</button>
@@ -639,7 +639,7 @@ function initializeCountdown() {
                 </div>
             `;
         } else {
-            countdownElement.innerHTML = '<h3>🎉 The party is today! 🎉</h3>';
+            countdownElement.innerHTML = '<h3><i class="fas fa-gift"></i> The party is today! <i class="fas fa-gift"></i></h3>';
         }
     }
     
@@ -763,12 +763,18 @@ function initializeParallaxEffects() {
 
 function addDynamicFloatingElements() {
     const dynamicElements = [];
-    const emojis = ['🎈', '✨', '🎉', '💖', '⭐', '🎁', '🎊', '🎂'];
+    const icons = ['fa-circle', 'fa-star', 'fa-gift', 'fa-heart', 'fa-star', 'fa-gift', 'fa-gift', 'fa-birthday-cake'];
     
     function createFloatingElement() {
         const element = document.createElement('div');
         element.className = 'dynamic-float';
-        element.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        
+        // Use Font Awesome icon
+        const iconClass = icons[Math.floor(Math.random() * icons.length)];
+        const icon = document.createElement('i');
+        icon.className = 'fas ' + iconClass;
+        element.appendChild(icon);
+        
         element.style.cssText = `
             position: fixed;
             font-size: ${Math.random() * 1.5 + 1}rem;
@@ -1498,7 +1504,7 @@ function createHeroEntranceParticles() {
     const particlesContainer = document.getElementById('heroEntranceParticles');
     if (!particlesContainer) return;
     
-    const particles = ['✨', '🌟', '💫', '⭐', '🎊', '🎉'];
+    const particleIcons = ['fa-star', 'fa-star', 'fa-star', 'fa-star', 'fa-gift', 'fa-gift'];
     
     for (let i = 0; i < 15; i++) {
         setTimeout(() => {
@@ -1528,16 +1534,17 @@ function createAnnouncementCelebration(card) {
     // Create dragon celebration
     for (let i = 0; i < 15; i++) {
         setTimeout(() => {
-            createParticle(centerX, centerY, ['🐲', '👑', '✨', '🌟', '🎉'][Math.floor(Math.random() * 5)]);
+            const particleIcon = ['fa-star', 'fa-crown', 'fa-star', 'fa-star', 'fa-gift'][Math.floor(Math.random() * 5)];
+            createParticle(centerX, centerY, particleIcon);
         }, i * 100);
     }
     
-    showFloatingText('🐲👑 DRAGON BOY! 👑🐲', centerX, centerY - 100, '#ffd700');
+    showFloatingText('<i class="fas fa-star"></i><i class="fas fa-star"></i> DRAGON BOY! <i class="fas fa-star"></i><i class="fas fa-star"></i>', centerX, centerY - 100, '#ffd700');
     
     // Add special sparkle burst
     setTimeout(() => {
         for (let i = 0; i < 8; i++) {
-            createParticle(centerX, centerY, '💎');
+            createParticle(centerX, centerY, 'fa-gem');
         }
     }, 800);
 }
@@ -1554,7 +1561,7 @@ function createButtonSparkles(button) {
             sparkle.style.fontSize = '1rem';
             sparkle.style.pointerEvents = 'none';
             sparkle.style.zIndex = '9999';
-            sparkle.textContent = '✨';
+            sparkle.textContent = '✦';
             sparkle.style.animation = 'sparkle-fade 1s ease-out forwards';
             
             document.body.appendChild(sparkle);
@@ -1657,7 +1664,7 @@ function createDragonMagic(dragon) {
     }
     
     // Show dragon message
-    showFloatingText('🐉 Little Dragon Magic! 🐉', centerX, centerY - 80, '#ffd700');
+    showFloatingText('<i class="fas fa-dragon"></i> Little Dragon Magic! <i class="fas fa-dragon"></i>', centerX, centerY - 80, '#ffd700');
 }
 
 function createDragonCelebration(dragon) {
@@ -1669,16 +1676,16 @@ function createDragonCelebration(dragon) {
     const colors = ['#ff6b9d', '#ffd93d', '#6bcf7f', '#667eea', '#ff6b6b'];
     for (let i = 0; i < 20; i++) {
         setTimeout(() => {
-            createColoredParticle(centerX, centerY, '🌈', colors[i % colors.length]);
+            createColoredParticle(centerX, centerY, 'fa-rainbow', colors[i % colors.length]);
         }, i * 100);
     }
     
-    showFloatingText('🎊 DRAGON POWER! 🎊', centerX, centerY - 120, '#ff6b9d');
+    showFloatingText('<i class="fas fa-star"></i><i class="fas fa-crown"></i> DRAGON POWER! <i class="fas fa-crown"></i><i class="fas fa-star"></i>', centerX, centerY - 120, '#ff6b9d');
     playSound('celebration');
 }
 
 function getDragonParticle() {
-    const particles = ['🔥', '✨', '⭐', '💫', '🌟', '💎', '🏮', '🐲'];
+    const dragonParticles = ['fa-fire', 'fa-star', 'fa-star', 'fa-star', 'fa-star', 'fa-gem', 'fa-lantern', 'fa-star'];
     return particles[Math.floor(Math.random() * particles.length)];
 }
 
@@ -1740,10 +1747,10 @@ function createLanternWish(lantern) {
     const centerY = rect.top + rect.height / 2;
     
     for (let i = 0; i < 8; i++) {
-        createParticle(centerX, centerY, '🎋');
+        createParticle(centerX, centerY, 'fa-leaf');
     }
     
-    showFloatingText('🏮 Good Fortune! 🏮', centerX, centerY - 60, '#ff0000');
+    showFloatingText('<i class="fas fa-lantern"></i> Good Fortune! <i class="fas fa-lantern"></i>', centerX, centerY - 60, '#ff0000');
 }
 
 function createBlossomShower(blossom) {
@@ -1753,11 +1760,11 @@ function createBlossomShower(blossom) {
     
     for (let i = 0; i < 15; i++) {
         setTimeout(() => {
-            createParticle(centerX, centerY, '🌸');
+            createParticle(centerX, centerY, 'fa-spa');
         }, i * 100);
     }
     
-    showFloatingText('🌸 Beauty & Growth! 🌸', centerX, centerY - 60, '#ffb6c1');
+    showFloatingText('<i class="fas fa-heart"></i> Beauty & Growth! <i class="fas fa-heart"></i>', centerX, centerY - 60, '#ffb6c1');
 }
 
 function createGoldenBurst(coin) {
@@ -1766,10 +1773,10 @@ function createGoldenBurst(coin) {
     const centerY = rect.top + rect.height / 2;
     
     for (let i = 0; i < 10; i++) {
-        createParticle(centerX, centerY, ['🪙', '💰', '✨'][Math.floor(Math.random() * 3)]);
+        createParticle(centerX, centerY, ['fa-coins', 'fa-coins', 'fa-star'][Math.floor(Math.random() * 3)]);
     }
     
-    showFloatingText('💰 Prosperity! 💰', centerX, centerY - 60, '#ffd700');
+    showFloatingText('<i class="fas fa-coins"></i> Prosperity! <i class="fas fa-coins"></i>', centerX, centerY - 60, '#ffd700');
 }
 
 function createFanBreeze(fan) {
@@ -1779,11 +1786,11 @@ function createFanBreeze(fan) {
     
     for (let i = 0; i < 6; i++) {
         setTimeout(() => {
-            createParticle(centerX, centerY, ['💨', '🌺', '🍃'][Math.floor(Math.random() * 3)]);
+            createParticle(centerX, centerY, ['fa-wind', 'fa-heart', 'fa-leaf'][Math.floor(Math.random() * 3)]);
         }, i * 150);
     }
     
-    showFloatingText('🌺 Gentle Breeze! 🌺', centerX, centerY - 60, '#ff69b4');
+    showFloatingText('<i class="fas fa-heart"></i> Gentle Breeze! <i class="fas fa-heart"></i>', centerX, centerY - 60, '#ff69b4');
 }
 
 // Dragon Zodiac Section Interactions
@@ -1836,11 +1843,11 @@ function createZodiacCelebration(dragon) {
     // Create zodiac power burst
     for (let i = 0; i < 20; i++) {
         setTimeout(() => {
-            createParticle(centerX, centerY, ['🐲', '⚡', '🔥', '✨', '💫'][Math.floor(Math.random() * 5)]);
+            createParticle(centerX, centerY, ['fa-star', 'fa-bolt', 'fa-fire', 'fa-star', 'fa-star'][Math.floor(Math.random() * 5)]);
         }, i * 75);
     }
     
-    showFloatingText('🐲 YEAR OF THE DRAGON! 🐲', centerX, centerY - 100, '#ffd700');
+    showFloatingText('<i class="fas fa-star"></i><i class="fas fa-star"></i> YEAR OF THE DRAGON! <i class="fas fa-star"></i><i class="fas fa-star"></i>', centerX, centerY - 100, '#ffd700');
 }
 
 function createElementCelebration(card, type) {
@@ -1848,16 +1855,14 @@ function createElementCelebration(card, type) {
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
     
-    const particles = {
-        lantern: ['🏮', '✨', '🎋'],
-        blossom: ['🌸', '🌺', '🌼'],
-        coin: ['🪙', '💰', '💎']
+    const lanternParticles = ['fa-lantern', 'fa-star', 'fa-leaf'];
+        const blossomParticles = ['fa-spa', 'fa-heart', 'fa-palette'];
+        const coinParticles = ['fa-coins', 'fa-coins', 'fa-gem'];
     };
     
     for (let i = 0; i < 8; i++) {
         createParticle(centerX, centerY, particles[type][Math.floor(Math.random() * 3)]);
     }
-}
 
 function createDragonYearCelebration(card) {
     const rect = card.getBoundingClientRect();
@@ -1865,14 +1870,14 @@ function createDragonYearCelebration(card) {
     const centerY = rect.top + rect.height / 2;
     
     // Rainbow dragon year celebration
-    const dragonElements = ['🐉', '🐲', '🔥', '⚡', '🌈', '✨', '💫', '🌟'];
+    const dragonElements = ['fa-dragon', 'fa-dragon', 'fa-fire', 'fa-bolt', 'fa-rainbow', 'fa-star', 'fa-star', 'fa-star'];
     for (let i = 0; i < 25; i++) {
         setTimeout(() => {
             createParticle(centerX, centerY, dragonElements[Math.floor(Math.random() * dragonElements.length)]);
         }, i * 100);
     }
     
-    showFloatingText('🎊 BORN IN THE YEAR OF THE DRAGON! 🎊', centerX, centerY - 150, '#ff6b9d');
+    showFloatingText('<i class="fas fa-gift"></i> BORN IN THE YEAR OF THE DRAGON! <i class="fas fa-gift"></i>', centerX, centerY - 150, '#ff6b9d');
 }
 
 // Floating Toys Interaction
@@ -1920,14 +1925,14 @@ function createToyInteraction(toy, toyType) {
 
 function getToyParticle(toyType) {
     const particles = {
-        bear: ['🧸', '❤️', '🤗'],
-        blocks: ['🧩', '🔷', '🔸'],
-        rattle: ['🎵', '🎶', '♪'],
-        bottle: ['🍼', '💕', '🤱'],
-        duck: ['🦆', '💦', '🌊'],
-        pacifier: ['🍭', '😴', '💤']
+        bear: ['fa-heart', 'fa-heart', 'fa-heart'],
+        blocks: ['fa-puzzle-piece', 'fa-gem', 'fa-gem'],
+        rattle: ['fa-music', 'fa-music', 'fa-music'],
+        bottle: ['fa-baby', 'fa-heart', 'fa-female'],
+        duck: ['fa-water', 'fa-droplet', 'fa-water'],
+        pacifier: ['fa-candy-cane', 'fa-moon', 'fa-moon']
     };
-    const options = particles[toyType] || ['✨', '⭐', '🌟'];
+    const options = particles[toyType] || ['fa-star', 'fa-star', 'fa-star'];
     return options[Math.floor(Math.random() * options.length)];
 }
 
@@ -1964,7 +1969,7 @@ function popBalloon(balloon, color) {
     
     // Create pop particles
     for (let i = 0; i < 12; i++) {
-        createParticle(centerX, centerY, '🎊');
+        createParticle(centerX, centerY, 'fa-gift');
     }
     
     // Play pop sound
@@ -2025,13 +2030,13 @@ function blowOutCandles() {
     // Show wish particles
     setTimeout(() => {
         createWishEffect();
-        showFloatingText('🌠 Make a wish! 🌠', window.innerWidth / 2, window.innerHeight / 2, '#ffd93d');
+        showFloatingText('<i class="fas fa-star"></i> Make a wish! <i class="fas fa-star"></i>', window.innerWidth / 2, window.innerHeight / 2, '#ffd93d');
         playSound('wish');
     }, 500);
     
     // Update instruction
     const instruction = document.querySelector('.cake-instruction p');
-    instruction.textContent = '✨ Wish made! Click to relight! ✨';
+    instruction.textContent = '<i class="fas fa-star"></i> Wish made! Click to relight! <i class="fas fa-star"></i>';
 }
 
 function relightCandles() {
@@ -2046,7 +2051,7 @@ function relightCandles() {
     });
     
     const instruction = document.querySelector('.cake-instruction p');
-    instruction.textContent = '🌬️ Click to blow out the candle! 🌬️';
+    instruction.textContent = '<i class="fas fa-wind"></i> Click to blow out the candle! <i class="fas fa-wind"></i>';
     
     playSound('light');
 }
@@ -2070,7 +2075,7 @@ function initializeMouseSparkles() {
     function createSparkle(x, y) {
         const sparkle = document.createElement('div');
         sparkle.className = 'sparkle';
-        sparkle.textContent = ['✨', '⭐', '🌟', '💫'][Math.floor(Math.random() * 4)];
+        sparkle.textContent = ['fa-star', 'fa-star', 'fa-star', 'fa-star'][Math.floor(Math.random() * 4)];
         sparkle.style.left = x + 'px';
         sparkle.style.top = y + 'px';
         sparkleTrail.appendChild(sparkle);
@@ -2127,7 +2132,7 @@ function initializeMilestoneAnimations() {
 }
 
 // Helper Functions
-function createParticle(x, y, emoji) {
+function createParticle(x, y, iconClass) {
     const particle = document.createElement('div');
     particle.style.position = 'fixed';
     particle.style.left = x + 'px';
@@ -2135,7 +2140,15 @@ function createParticle(x, y, emoji) {
     particle.style.fontSize = '1.5rem';
     particle.style.pointerEvents = 'none';
     particle.style.zIndex = '9999';
-    particle.textContent = emoji;
+    
+    // Check if iconClass is a Font Awesome class or emoji
+    if (iconClass.startsWith('fa-')) {
+        const icon = document.createElement('i');
+        icon.className = 'fas ' + iconClass;
+        particle.appendChild(icon);
+    } else {
+        particle.textContent = iconClass;
+    }
     
     const angle = Math.random() * Math.PI * 2;
     const velocity = 50 + Math.random() * 100;
@@ -2301,7 +2314,7 @@ function playAsianSound(elementType) {
     playTone(sounds[elementType] || 440, 0.15);
 }
 
-function createColoredParticle(x, y, emoji, color) {
+function createColoredParticle(x, y, iconClass, color) {
     const particle = document.createElement('div');
     particle.style.position = 'fixed';
     particle.style.left = x + 'px';
@@ -2310,7 +2323,15 @@ function createColoredParticle(x, y, emoji, color) {
     particle.style.pointerEvents = 'none';
     particle.style.zIndex = '9999';
     particle.style.color = color;
-    particle.textContent = emoji;
+    
+    // Check if iconClass is a Font Awesome class or emoji
+    if (iconClass.startsWith('fa-')) {
+        const icon = document.createElement('i');
+        icon.className = 'fas ' + iconClass;
+        particle.appendChild(icon);
+    } else {
+        particle.textContent = iconClass;
+    }
     
     const angle = Math.random() * Math.PI * 2;
     const velocity = 50 + Math.random() * 100;
@@ -2342,18 +2363,18 @@ function createColoredParticle(x, y, emoji, color) {
 // Missing helper functions
 function showToyMessage(toyType, x, y) {
     const messages = {
-        bear: 'Teddy Bear Hugs! 🧸',
-        blocks: 'Building Fun! 🧩',
-        rattle: 'Shake It! 🎵',
+        bear: 'Teddy Bear Hugs! <i class="fas fa-heart"></i>',
+        blocks: 'Building Fun! <i class="fas fa-puzzle-piece"></i>',
+        rattle: 'Shake It! <i class="fas fa-music"></i>',
         bottle: 'Feeding Time! 🍼',
-        duck: 'Rubber Ducky! 🦆',
-        pacifier: 'Sweet Dreams! 🍭'
+        duck: 'Rubber Ducky! <i class="fas fa-water"></i>',
+        pacifier: 'Sweet Dreams! <i class="fas fa-moon"></i>'
     };
     showFloatingText(messages[toyType] || 'So Fun!', x, y - 50, '#ff6b9d');
 }
 
 function showBalloonGameComplete() {
-    showFloatingText('🎉 All Balloons Popped! 🎉', window.innerWidth / 2, window.innerHeight / 2, '#ffd93d');
+    showFloatingText('<i class="fas fa-gift"></i> All Balloons Popped! <i class="fas fa-gift"></i>', window.innerWidth / 2, window.innerHeight / 2, '#ffd93d');
     playSound('celebration');
 }
 
@@ -2364,7 +2385,7 @@ function createSmokeEffect(candle) {
     
     for (let i = 0; i < 5; i++) {
         setTimeout(() => {
-            createParticle(x, y, '💨');
+            createParticle(x, y, 'fa-wind');
         }, i * 100);
     }
 }
@@ -2375,7 +2396,7 @@ function createBirthdayExplosion(milestone) {
     const centerY = rect.top + rect.height / 2;
     
     for (let i = 0; i < 15; i++) {
-        createParticle(centerX, centerY, ['🎉', '🎊', '✨', '🌟'][Math.floor(Math.random() * 4)]);
+        createParticle(centerX, centerY, ['fa-gift', 'fa-gift', 'fa-star', 'fa-star'][Math.floor(Math.random() * 4)]);
     }
     
     playSound('celebration');
@@ -2388,7 +2409,7 @@ function createMilestoneParticles(milestone) {
     
     for (let i = 0; i < 6; i++) {
         setTimeout(() => {
-            createParticle(centerX, centerY, ['⭐', '✨', '💫'][Math.floor(Math.random() * 3)]);
+            createParticle(centerX, centerY, ['fa-star', 'fa-star', 'fa-star'][Math.floor(Math.random() * 3)]);
         }, i * 200);
     }
 }
@@ -2399,20 +2420,20 @@ function createMilestoneInteraction(milestone, milestoneType) {
     const centerY = rect.top + rect.height / 2;
     
     const messages = {
-        birth: 'Hello World! 👶',
-        smile: 'First Smile! 😊',
-        laugh: 'Giggles! 😄',
-        rollover: 'Rolling! 🤸‍♀️',
-        sitting: 'Sitting Up! 🪑',
-        crawling: 'Crawling! 🚼',
-        walking: 'First Steps! 🚶‍♀️',
-        birthday: 'Happy 6th Birthday! 🎉'
+        birth: 'Hello World! <i class="fas fa-baby"></i>',
+        smile: 'First Smile! <i class="fas fa-face-smile"></i>',
+        laugh: 'Giggles! <i class="fas fa-face-laugh"></i>',
+        rollover: 'Rolling! <i class="fas fa-person-falling"></i>',
+        sitting: 'Sitting Up! <i class="fas fa-chair"></i>',
+        crawling: 'Crawling! <i class="fas fa-baby"></i>',
+        walking: 'First Steps! <i class="fas fa-person-walking"></i>',
+        birthday: 'Happy 6th Birthday! <i class="fas fa-gift"></i>'
     };
     
     showFloatingText(messages[milestoneType] || 'Milestone!', centerX, centerY - 100, '#6bcf7f');
     
     for (let i = 0; i < 8; i++) {
-        createParticle(centerX, centerY, '🌟');
+        createParticle(centerX, centerY, 'fa-star');
     }
 }
 
@@ -2436,24 +2457,24 @@ function createBirthStatCelebration(stat) {
         // Weight celebration - golden particles
         for (let i = 0; i < 10; i++) {
             setTimeout(() => {
-                createParticle(centerX, centerY, ['⚖️', '💖', '👶', '✨', '🌟'][Math.floor(Math.random() * 5)]);
+                createParticle(centerX, centerY, ['fa-balance-scale', 'fa-heart', 'fa-baby', 'fa-star', 'fa-star'][Math.floor(Math.random() * 5)]);
             }, i * 100);
         }
-        showFloatingText('🥰 Perfect Weight! 🥰', centerX, centerY - 80, '#ffd700');
+        showFloatingText('<i class="fas fa-heart"></i> Perfect Weight! <i class="fas fa-heart"></i>', centerX, centerY - 80, '#ffd700');
     } else if (isHeight) {
         // Height celebration - growth particles
         for (let i = 0; i < 10; i++) {
             setTimeout(() => {
-                createParticle(centerX, centerY, ['📏', '🌱', '👶', '💕', '🌈'][Math.floor(Math.random() * 5)]);
+                createParticle(centerX, centerY, ['fa-ruler', 'fa-seedling', 'fa-baby', 'fa-heart', 'fa-rainbow'][Math.floor(Math.random() * 5)]);
             }, i * 100);
         }
-        showFloatingText('🌟 Perfect Size! 🌟', centerX, centerY - 80, '#ff6b9d');
+        showFloatingText('<i class="fas fa-star"></i> Perfect Size! <i class="fas fa-star"></i>', centerX, centerY - 80, '#ff6b9d');
     }
     
     // Add special dragon celebration
     setTimeout(() => {
-        createParticle(centerX, centerY, '🐉');
-        showFloatingText('Little Dragon Stats! 🐲', centerX, centerY - 120, '#667eea');
+        createParticle(centerX, centerY, 'fa-dragon');
+        showFloatingText('Little Dragon Stats! <i class="fas fa-star"></i>', centerX, centerY - 120, '#667eea');
     }, 500);
 }
 
@@ -2471,26 +2492,26 @@ function createDragonStatCelebration(stat) {
         // Dragon weight celebration
         for (let i = 0; i < 12; i++) {
             setTimeout(() => {
-                createParticle(centerX, centerY, ['🐲', '⚖️', '💎', '✨', '🌟'][Math.floor(Math.random() * 5)]);
+                createParticle(centerX, centerY, ['fa-dragon', 'fa-balance-scale', 'fa-gem', 'fa-star', 'fa-star'][Math.floor(Math.random() * 5)]);
             }, i * 80);
         }
-        showFloatingText('🐲 Strong Dragon! 🐲', centerX, centerY - 90, '#ffd700');
+        showFloatingText('<i class="fas fa-star"></i><i class="fas fa-star"></i> Strong Dragon! <i class="fas fa-star"></i><i class="fas fa-star"></i>', centerX, centerY - 90, '#ffd700');
     } else if (isHeight) {
         // Dragon height celebration
         for (let i = 0; i < 12; i++) {
             setTimeout(() => {
-                createParticle(centerX, centerY, ['🐉', '📏', '🌈', '💫', '⭐'][Math.floor(Math.random() * 5)]);
+                createParticle(centerX, centerY, ['fa-dragon', 'fa-ruler', 'fa-rainbow', 'fa-star', 'fa-star'][Math.floor(Math.random() * 5)]);
             }, i * 80);
         }
-        showFloatingText('🐉 Mighty Dragon! 🐉', centerX, centerY - 90, '#ff6b9d');
+        showFloatingText('<i class="fas fa-star"></i><i class="fas fa-star"></i> Mighty Dragon! <i class="fas fa-star"></i><i class="fas fa-star"></i>', centerX, centerY - 90, '#ff6b9d');
     }
     
     // Add special dragon power burst
     setTimeout(() => {
         for (let i = 0; i < 5; i++) {
-            createParticle(centerX, centerY, '🔥');
+            createParticle(centerX, centerY, 'fa-fire');
         }
-        showFloatingText('Dragon Power Stats! ⚡', centerX, centerY - 130, '#667eea');
+        showFloatingText('<i class="fas fa-bolt"></i> Dragon Power Stats! <i class="fas fa-bolt"></i>', centerX, centerY - 130, '#667eea');
     }, 800);
 }
 
@@ -2639,7 +2660,7 @@ function initializeTimeCapsule() {
         const name = nameInput.value.trim() || 'Anonymous';
 
         if (!message) {
-            showNotification('Please write a message for Thị Mỳ! 💕', 'error');
+            showNotification('Please write a message for Thị Mỳ! <i class="fas fa-heart"></i>', 'error');
             return;
         }
 
@@ -2656,13 +2677,13 @@ function initializeTimeCapsule() {
                 
                 // Save to Firebase Firestore
                 const docRef = await db.collection('timeCapsuleMessages').add(messageData);
-                showNotification(`Message saved to the cloud for 's future! ☁️✨`, 'success');
+                showNotification(`Message saved to the cloud for 's future! <i class="fas fa-cloud"></i><i class="fas fa-star"></i>`, 'success');
             } else {
                 // Fallback to localStorage
                 let savedMessages = JSON.parse(localStorage.getItem('timeCapsuleMessages') || '[]');
                 savedMessages.push(messageData);
                 localStorage.setItem('timeCapsuleMessages', JSON.stringify(savedMessages));
-                showNotification(`Message saved for Thị Mỳ's future! ✨`, 'success');
+                showNotification(`Message saved for Thị Mỳ's future! <i class="fas fa-star"></i>`, 'success');
             }
 
             // Create celebration effect
@@ -2680,7 +2701,7 @@ function initializeTimeCapsule() {
                 let savedMessages = JSON.parse(localStorage.getItem('timeCapsuleMessages') || '[]');
                 savedMessages.push(messageData);
                 localStorage.setItem('timeCapsuleMessages', JSON.stringify(savedMessages));
-                showNotification('Message saved locally (cloud connection failed) 💾', 'warning');
+                showNotification('Message saved locally (cloud connection failed) ', 'warning');
                 
                 // Create celebration effect
                 createTimeCapsuleCelebration();
@@ -2692,7 +2713,7 @@ function initializeTimeCapsule() {
                 
                 playTone(659.25, 0.3); // E5 note
             } catch (fallbackError) {
-                showNotification('Error saving message. Please try again! 😢', 'error');
+                showNotification('Error saving message. Please try again! ', 'error');
             }
         }
     }
@@ -2700,7 +2721,7 @@ function initializeTimeCapsule() {
     async function loadSavedMessages() {
         const loadingHTML = `
             <div style="text-align: center; padding: 40px; opacity: 0.7;">
-                <div style="font-size: 2rem; margin-bottom: 10px;">⏳</div>
+                <div style="font-size: 2rem; margin-bottom: 10px;"><i class="fas fa-hourglass-half"></i></div>
                 <p>Loading magical messages...</p>
             </div>
         `;
@@ -2742,7 +2763,7 @@ function initializeTimeCapsule() {
 
             // Update message counter
             if (messagesCounter) {
-                const storageIcon = displayFromCloud ? '☁️' : '💾';
+                const storageIcon = displayFromCloud ? '<i class="fas fa-cloud"></i>' : '<i class="fas fa-save"></i>';
                 messagesCounter.innerHTML = `${savedMessages.length} messages ${storageIcon}`;
             }
 
@@ -2752,11 +2773,11 @@ function initializeTimeCapsule() {
             if (savedMessages.length === 0) {
                 const noMessagesHTML = `
                     <div style="text-align: center; padding: 40px; opacity: 0.7;">
-                        <div style="font-size: 3rem; margin-bottom: 15px;">💌</div>
+                        <div style="font-size: 3rem; margin-bottom: 15px;"><i class="fas fa-envelope"></i></div>
                         <p style="font-size: 1.1rem; color: #6B7280;">
                             ${displayFromCloud ? 
-                                'No messages in the cloud yet. Be the first to share your love! ☁️✨' :
-                                'No messages saved yet. Be the first to share your love! 💾✨'
+                                'No messages in the cloud yet. Be the first to share your love!' :
+                                'No messages saved yet. Be the first to share your love!'
                             }
                         </p>
                     </div>
@@ -2775,7 +2796,7 @@ function initializeTimeCapsule() {
         } catch (error) {
             const errorHTML = `
                 <div style="text-align: center; padding: 40px;">
-                    <div style="font-size: 2.5rem; margin-bottom: 15px;">😢</div>
+                    <div style="font-size: 2.5rem; margin-bottom: 15px;"><i class="fas fa-sad-tear"></i></div>
                     <p style="color: #EF4444; font-weight: 600;">
                         Error loading messages: ${error.message}
                     </p>
@@ -2802,8 +2823,8 @@ function initializeTimeCapsule() {
             transform: translateY(20px);
         `;
         
-        const storageIcon = isFromCloud ? '☁️' : '💾';
-        const cardIcon = ['💝', '💌', '🎁', '✨', '💕', '🌟', '💖', '🌸'][index % 8];
+        const storageIcon = isFromCloud ? '<i class="fas fa-cloud"></i>' : '<i class="fas fa-save"></i>';
+        const cardIcon = ['fa-heart', 'fa-envelope', 'fa-gift', 'fa-star', 'fa-heart', 'fa-star', 'fa-heart', 'fa-heart'][index % 8];
         
         messageDiv.innerHTML = `
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
@@ -2827,7 +2848,7 @@ function initializeTimeCapsule() {
             </div>
             <div style="text-align: right; opacity: 0.7;">
                 <span style="font-size: 0.8rem; color: #7C3AED; font-weight: 500;">
-                    — With love for Future Thị Mỳ 💖
+                    — With love for Future Thị Mỳ <i class="fas fa-heart"></i>
                 </span>
             </div>
         `;
@@ -2851,7 +2872,7 @@ function initializeTimeCapsule() {
                     top: 25%;
                     width: 20px;
                     height: 20px;
-                    background: ${['💌', '💝', '✨', '💫', '🌟'][Math.floor(Math.random() * 5)]};
+                    background: ${['fa-envelope', 'fa-heart', 'fa-star', 'fa-star', 'fa-star'][Math.floor(Math.random() * 5)]};
                     font-size: 20px;
                     pointer-events: none;
                     z-index: 1000;
@@ -2969,7 +2990,7 @@ function initializeStoryBook() {
         updatePageDisplay();
         
         // Show success notification
-        showNotification('Story book opened! 📖✨', 'success');
+        showNotification('Story book opened! <i class="fas fa-book"></i>', 'success');
     }
 
     // Navigation - add event listeners even if hidden initially
@@ -3041,7 +3062,7 @@ function initializeStoryBook() {
                     top: 50%;
                     width: 15px;
                     height: 15px;
-                    background: ${['📖', '✨', '🌟', '💫', '🎭'][Math.floor(Math.random() * 5)]};
+                    background: ${['fa-book', 'fa-star', 'fa-star', 'fa-star', 'fa-masks'][Math.floor(Math.random() * 5)]};
                     font-size: 15px;
                     pointer-events: none;
                     z-index: 100;
@@ -3064,7 +3085,7 @@ function initializeStoryBook() {
                 top: ${Math.random() * 100}%;
                 width: 10px;
                 height: 10px;
-                background: ✨;
+                background: var(--sparkle-color, '#ffd700');
                 font-size: 10px;
                 pointer-events: none;
                 z-index: 100;
@@ -3107,8 +3128,8 @@ function initializeMemoryGarden() {
     let butterflyCount = 0;
     let memoryCount = parseInt(localStorage.getItem('gardenMemoryCount') || '0');
     
-    const flowerTypes = ['🌸', '🌺', '🌻', '🌷', '🌹', '🏵️', '🌼', '💐'];
-    const butterflyTypes = ['🦋', '🦄', '🧚‍♀️'];
+    const flowerTypes = ['fa-spa', 'fa-spa', 'fa-sun', 'fa-spa', 'fa-spa', 'fa-spa', 'fa-spa', 'fa-heart'];
+    const butterflyTypes = ['fa-butterfly', 'fa-horse', 'fa-user-astronaut'];
     
     if (!flowerBed) {
         return;
@@ -3131,7 +3152,7 @@ function initializeMemoryGarden() {
             
             // Add visual indication that photos are clickable
             img.style.cursor = 'pointer';
-            img.title = 'Click to plant a flower for this memory! 🌸';
+            img.title = 'Click to plant a flower for this memory!';
         });
     }
     
@@ -3142,7 +3163,7 @@ function initializeMemoryGarden() {
         if (existingFlower) {
             // Animate existing flower
             existingFlower.style.animation = 'flower-celebrate 1s ease-out';
-            showNotification('This memory is already blooming in your garden! 🌸', 'info');
+            showNotification('This memory is already blooming in your garden!', 'info');
             return;
         }
         
@@ -3190,7 +3211,7 @@ function initializeMemoryGarden() {
         }, 2000);
         
         // Show success message
-        showNotification(`Beautiful ${flowerType} planted for this memory! 🌸`, 'success');
+        showNotification(`Beautiful flower planted for this memory!`, 'success');
         playTone(523.25 + (photoIndex * 25), 0.3);
         
         // Add click handler to flower
@@ -3213,7 +3234,7 @@ function initializeMemoryGarden() {
                     top: ${flower.style.top};
                     width: 15px;
                     height: 15px;
-                    background: ${['✨', '🌟', '💫', '🌸'][Math.floor(Math.random() * 4)]};
+                    background: ${['fa-star', 'fa-star', 'fa-star', 'fa-spa'][Math.floor(Math.random() * 4)]};
                     font-size: 15px;
                     pointer-events: none;
                     z-index: 100;
@@ -3607,7 +3628,7 @@ function initializeMemoriesGallery() {
 
             const overlay = document.createElement('div');
             overlay.className = 'memory-overlay';
-            overlay.innerHTML = '<div class="memory-play-icon">👁️</div>';
+            overlay.innerHTML = '<div class="memory-play-icon"><i class="fas fa-eye"></i></div>';
 
             item.appendChild(img);
             item.appendChild(overlay);
@@ -3771,7 +3792,7 @@ function initializeMemoriesGallery() {
                     try {
                         await navigator.share({
                             title: `${imageData.title} - Thị Mỳ's Memories`,
-                            text: `Beautiful memory of Thị Mỳ! 💕`,   
+                            text: `Beautiful memory of Thị Mỳ!`,   
                             url: window.location.href
                         });
                         playTone(880, 0.2);
@@ -3780,7 +3801,7 @@ function initializeMemoriesGallery() {
                 } else {
                     // Fallback: copy to clipboard
                     navigator.clipboard.writeText(window.location.href);
-                    showNotification('Link copied to clipboard! 📋✨', 'success');
+                    showNotification('Link copied to clipboard! <i class="fas fa-link"></i>', 'success');
                     playTone(880, 0.2);
                 }
             });
@@ -4032,7 +4053,7 @@ function initializeMemoriesGallery() {
                     top: ${window.innerHeight / 2 + Math.random() * 100 - 50}px;
                     width: 12px;
                     height: 12px;
-                    background: ${['✨', '💫', '🌟'][Math.floor(Math.random() * 3)]};
+                    background: ${['fa-star', 'fa-star', 'fa-star'][Math.floor(Math.random() * 3)]};
                     font-size: 12px;
                     pointer-events: none;
                     z-index: 1000;
@@ -4055,7 +4076,7 @@ function initializeMemoriesGallery() {
                     top: ${window.innerHeight / 2}px;
                     width: 15px;
                     height: 15px;
-                    background: ${['📷', '💕', '✨', '🌟'][Math.floor(Math.random() * 4)]};
+                    background: ${['fa-camera', 'fa-heart', 'fa-star', 'fa-star'][Math.floor(Math.random() * 4)]};
                     font-size: 15px;
                     pointer-events: none;
                     z-index: 10000;

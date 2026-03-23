@@ -1,4 +1,4 @@
-﻿// Create floating particles
+// Create floating particles
 function createParticles() {
     const particlesContainer = document.getElementById('particles');
     const particleCount = 40;
@@ -110,7 +110,7 @@ function createHeartExplosion(heartElement) {
     const heartsContainer = document.getElementById('floatingHeartsContainer');
     if (!heartsContainer) return;
     
-    const heartEmojis = ['💖', '💕', '💗', '💓', '💝', '💘', '❤️', '🧡'];
+    const heartIcons = ['fa-heart', 'fa-heart', 'fa-heart', 'fa-heart', 'fa-heart', 'fa-heart', 'fa-heart', 'fa-heart'];
     const rect = heartElement.getBoundingClientRect();
     const containerRect = heartsContainer.getBoundingClientRect();
     
@@ -128,8 +128,10 @@ function createHeartExplosion(heartElement) {
     
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
+        const heartIcon = document.createElement('i');
+        heartIcon.className = 'fas ' + heartIcons[Math.floor(Math.random() * heartIcons.length)];
         particle.className = 'heart-particle';
-        particle.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+        particle.appendChild(heartIcon);
         
         // Tính toán hướng nổ
         const angle = (Math.PI * 2 * i) / particleCount;
@@ -165,16 +167,18 @@ function createFloatingHearts() {
     const heartsContainer = document.getElementById('floatingHeartsContainer');
     if (!heartsContainer) return;
     
-    const heartEmojis = ['💖', '💕', '💗', '💓', '💝', '💘', '❤️', '🧡'];
+    const heartIcons = ['fa-heart', 'fa-heart', 'fa-heart', 'fa-heart', 'fa-heart', 'fa-heart', 'fa-heart', 'fa-heart'];
     const heartCount = 16; // Số lượng trái tim
     
     for (let i = 0; i < heartCount; i++) {
         const heart = document.createElement('div');
         heart.className = 'floating-heart';
         
-        // Emoji trái tim ngẫu nhiên
-        const emoji = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-        heart.textContent = emoji;
+        // Icon trái tim ngẫu nhiên
+        const iconClass = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+        const icon = document.createElement('i');
+        icon.className = 'fas ' + iconClass;
+        heart.appendChild(icon);
         
         // Kích thước ngẫu nhiên
         const size = Math.random() * 20 + 18; // 18px - 38px
